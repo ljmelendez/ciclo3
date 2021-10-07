@@ -1,6 +1,88 @@
 (function($) {
     "use strict"
 
+    var busqueda = false;
+
+    //Buscar Usuario
+    $('#numId').keyup(function(e) {
+        e.preventDefault();
+        if ($('#numId').val() == '1234' && $('#tipoId').val() == 'CC') {
+            $('#primerNombre').val('Radamel');
+            $('#primerApellido').val('Falcao');
+            $('#correo').val('rfalcao@fcf.com');
+            $('#direccion').val('Calle 10 # 25 -58');
+            $('#nombreUsuario').val('rfalcao');
+            $('#telefono').val('3698745');
+            busqueda = true;
+        } else {
+            $('#primerNombre').val('');
+            $('#primerApellido').val('');
+            $('#correo').val('');
+            $('#direccion').val('');
+            $('#nombreUsuario').val('');
+            $('#telefono').val('');
+            busqueda = false;
+        }
+    });
+
+    //Eliminar Usuario
+    $('#eliminarUsuario').on('click', function(e) {
+        e.preventDefault();
+        if (busqueda) {
+            if (window.confirm("¿Realmente quieres eliminar este usuario?")) {
+                $('#tipoId').val('CC');
+                $('#numId').val('');
+                $('#primerNombre').val('');
+                $('#primerApellido').val('');
+                $('#correo').val('');
+                $('#direccion').val('');
+                $('#nombreUsuario').val('');
+                $('#telefono').val('');
+                busqueda = false;
+            }
+        } else {
+            alert('Primero debe buscar un usuario.');
+        }
+
+    });
+
+    //Limpiar Usuario
+    $('#limpiarUsuario').on('click', function(e) {
+        e.preventDefault();
+        $('#tipoId').val('CC');
+        $('#numId').val('');
+        $('#primerNombre').val('');
+        $('#primerApellido').val('');
+        $('#correo').val('');
+        $('#direccion').val('');
+        $('#nombreUsuario').val('');
+        $('#telefono').val('');
+    });
+
+    //Guardar Usuario
+    //Limpiar Usuario
+    $('#guardarUsuario').on('click', function(e) {
+        e.preventDefault();
+        if (busqueda) {
+            if ($('#tipoId').val() != '' && $('#numId').val() != '' && $('#primerNombre').val() != '' &&
+                $('#primerApellido').val() != '' && $('#correo').val() != '' && $('#direccion').val() != '' &&
+                $('#nombreUsuario').val() != '' && $('#telefono').val() != '') {
+                alert('Usuario creado exitosamente!');
+            } else {
+                alert('Todos los campos deben estar diligenciados.');
+            }
+        } else {
+            if ($('#tipoId').val() != '' && $('#numId').val() != '' && $('#primerNombre').val() != '' &&
+                $('#primerApellido').val() != '' && $('#correo').val() != '' && $('#direccion').val() != '' &&
+                $('#nombreUsuario').val() != '' && $('#telefono').val() != '' && $('#contrasena').val() != '' && $('#repetirContrasena').val() != '') {
+                alert('Usuario creado exitosamente!');
+            } else {
+                alert('Todos los campos deben estar diligenciados.');
+            }
+        }
+
+    });
+
     //Comentar
     $('#Comentar').on('click', function(e) {
         e.preventDefault();
@@ -165,13 +247,17 @@
     var priceInputMax = document.getElementById('price-max'),
         priceInputMin = document.getElementById('price-min');
 
-    priceInputMax.addEventListener('change', function() {
-        updatePriceSlider($(this).parent(), this.value)
-    });
+    if (priceInputMax) {
+        priceInputMax.addEventListener('change', function() {
+            updatePriceSlider($(this).parent(), this.value)
+        });
+    }
 
-    priceInputMin.addEventListener('change', function() {
-        updatePriceSlider($(this).parent(), this.value)
-    });
+    if (priceInputMin) {
+        priceInputMin.addEventListener('change', function() {
+            updatePriceSlider($(this).parent(), this.value)
+        });
+    }
 
     function updatePriceSlider(elem, value) {
         if (elem.hasClass('price-min')) {

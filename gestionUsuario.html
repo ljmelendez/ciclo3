@@ -79,16 +79,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Tipo de identificación:</label>
-                                    <select class="form-control">
-                                        <option>CC</option>
-                                        <option>TI</option>
-                                        <option>CE</option>
-                                        <option>PA</option>
+                                    <select class="form-control" id="tipoId">
+                                        <option value="CC">CC</option>
+                                        <option value="TI">TI</option>
+                                        <option value="CE">CE</option>
+                                        <option value="PA">PA</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Número de identificación:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="numId">
                                 </div>
                             </div>
                         </div>
@@ -96,11 +96,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Primer nombre:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="primerNombre">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Segundo nombre:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="segundoNombre">
                                 </div>
                             </div>
                         </div>
@@ -108,31 +108,31 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Primer apellido:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="primerApellido">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Segundo apellido:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="segundoApellido">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Correo electrónico:</label>
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" id="correo">
                         </div>
                         <div class="form-group">
                             <label>Dirección:</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="direccion">
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Nombre de usuario:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="nombreUsuario">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Teléfono:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="telefono">
                                 </div>
                             </div>
                         </div>
@@ -140,30 +140,44 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Contraseña:</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" class="form-control" id="contrasena">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Repita su contraseña:</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" class="form-control" id="repetirContrasena">
                                 </div>
                             </div>
                         </div>
-                        <div class="checkbox">
-                            <label>
-                              <input type="checkbox">
-                              He leído y acepto la política de tratamiento de datos personales.
-                            </label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Rol:</label>
+                                    <select class="form-control" id="tipoId">
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Cliente">Cliente</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
                         </div>
-                        <a href="index.html" class="primary-btn" style="display: block;margin: auto;">Registrarme</a>
-
-                        <div class="sign-up">
-                            ¿Ya tienes una cuenta? <a href="login.html">Ingresa aquí</a>
+                        <div class="text-center">
+                            <a href="index.html" class="secondary-btn" id="guardarUsuario" style="margin-right: 10px;">Guardar</a>
+                            <a href="#" class="primary-btn" id="eliminarUsuario" style="margin-right: 10px;">Eliminar</a>
+                            <a href="#" class="default-btn" id="limpiarUsuario">Limpiar</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- jQuery Plugins -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script src="js/jquery.zoom.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

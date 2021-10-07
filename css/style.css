@@ -133,6 +133,46 @@ ol {
     color: #FFF;
 }
 
+.secondary-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #0062d1;
+    border: none;
+    border-radius: 40px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.secondary-btn:hover,
+.secondary-btn:focus {
+    opacity: 0.9;
+    color: #FFF;
+}
+
+.default-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #505050;
+    border: none;
+    border-radius: 40px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+
+.default-btn:hover,
+.default-btn:focus {
+    opacity: 0.9;
+    color: #FFF;
+}
+
 
 /*----------------------------*\
 	Inputs
