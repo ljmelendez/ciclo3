@@ -40,3 +40,22 @@
 }
 
 .carousel{margin-bottom: 80px;}
+
+
+.crear-producto{
+    padding-left: 75px !important;
+    padding-bottom: 20px !important;
+    color: #0f98f9;
+}
+.btn-del-edit-prod{
+    margin-top: 20px;
+}
+
+.btn-editar
+{
+   color: #0f98f9; 
+}
+
+.btn-eliminar{
+   color: #ff4545dd;
+}

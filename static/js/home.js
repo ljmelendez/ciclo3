@@ -1,7 +1,14 @@
-urlbase = 'http://127.0.0.1:8080';
+home = {
+    urlbase: 'http://127.0.0.1:8080', 
+    uSuperAdmin: 1,
+    uAdmin: 2,
+    uCliente: 3,
+    ref: null
+}
 urlRest = {
-    urlgetproductos: urlbase + '/productos',
-    urlgetlistadeseos: urlbase + '/listadeseos'
+    urlgetproductos: home.urlbase + '/productos',
+    urlconnect: home.urlbase + '/connect',
+    urlgetlistadeseos: home.urlbase + '/listadeseos'
 }
 
 servicios = {
@@ -12,7 +19,7 @@ servicios = {
             async: true,
             dataType: "json",
             success: function(data){
-                debugger;
+
                 for(var i=0; i<data.length; i++){
 
                     newProducto = 
@@ -63,13 +70,29 @@ servicios = {
                     '		  </form>'+
                     '		<span class="s-precio">$ '+data[i].Precio+'</span>'+
                     '		<a href="#" class="s-producto-comentarios">'+data[i].Comentarios+' comentarios</a>'+
+                    '       <div class="btn-del-edit-prod"><a href="#" class="btn-editar">Editar</a> <a href="#" class="btn-eliminar">Eliminar</a></div>'+
                     '	</div>';
 
-                $("#list-productos").append(newProducto);
-            }
+                    $("#list-productos").append(newProducto);
+                }
+            },
+            error: function(e){
+                    
+            },
+        });
+    },
 
-
-
+    getconnect: function(){
+        $.ajax({
+            type: "GET",
+            url: urlRest.urlconnect,
+            async: true,
+            dataType: "json",
+            success: function(data){
+                debugger
+                home.ref = data.ref;
+                if(data.tipoUser == home.uSuperAdmin)
+                 $("#crear-producto").show();
 
             },
             error: function(e){
