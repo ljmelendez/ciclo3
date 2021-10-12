@@ -59,3 +59,13 @@
 .btn-eliminar{
    color: #ff4545dd;
 }
+
+.heart{
+    color: #9c9a9add;    
+    display: block;
+    cursor: pointer;
+}
+
+.heart-on{
+    color: red;
+}

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Foot locker</title>
+		<title>Lista de Deseos</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -92,7 +92,7 @@
 							<div class="header-ctn">
 								<!-- Wishlist -->
 								<div>
-									<a id="lista-deseos" href="/lista-deseos/">
+									<a id="lista-deseos" href="/lista-deseos/" >
 										<i class="fa fa-heart-o"></i>
 										<span>Lista de Deseos</span>
 										<div class="qty">0</div>
@@ -444,9 +444,8 @@
 		<script src='{{url_for("static", filename="js/home.js")}}'></script>
 
 		<script>
-			$(document).ready(function() {
-				servicios.getproductos();
-				servicios.getconnect();
+			$(document).ready(function() {								
+				servicios.getListaDeseos();
 			});
 		</script>
 
