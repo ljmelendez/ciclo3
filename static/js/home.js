@@ -8,10 +8,36 @@ home = {
 urlRest = {
     urlgetproductos: home.urlbase + '/productos',
     urlconnect: home.urlbase + '/connect',
-    urlgetListaDeseos: home.urlbase + '/listadeseos/'
+    urlgetListaDeseos: home.urlbase + '/listadeseos/',
+    urlputListaDeseos: home.urlbase + '/putListadeseos/'
 }
 
 servicios = {
+
+
+    putListadeseos: function(pref, current){
+
+        $.ajax({            
+            data: JSON.stringify({"UserRef": localStorage.userRef, "ProRef":pref}),
+            url: urlRest.urlputListaDeseos,
+            type: "POST",
+            async: true,
+            dataType: "json",    
+            contentType: 'application/json',        
+            success: function(data){
+                if(data.SUCCESS == "OK")
+                {
+                    $("i", current).toggleClass("heart-on");                           
+                    $("span", current).html($("i", current).hasClass("heart-on") ? "Quitar de la lista de deseos ": "Agregar a la lista de deseos ");                                              
+                    $(".qty").html($(".heart-on").toArray().length);
+                }                
+            },
+            error: function(e){
+                    
+            },
+        }); 
+
+    },
     
     getproductos: function(){        
         localStorage.Deseados = 0;
@@ -24,11 +50,10 @@ servicios = {
             success: function(data){
                 $("#list-productos").html("");
                 for(var i=0; i<data.length; i++){
-
                     newProducto = 
-                    '       <div id="carousel-example-generic'+i+'" class="carousel slide col-md-2" data-ride="carousel" data-interval="false">'+
+                    '       <div id="carousel-example-generic'+i+'" data-ref="'+data[i].ProductoID+'" class="carousel slide col-md-2" data-ride="carousel" data-interval="false">'+
                     '		<h4>'+data[i].Nombre+'</h4> '+
-                    '		<span class="heart">Agregar a la lista de deseos'+
+                    '		<span class="heart"><span class="label-deseos">'+(data[i].Deseado == "true" ? "Quitar de " : "Agregar a ")+'la lista de deseos</span>'+
                     '		<i class="'+(data[i].Deseado == "true" ? 'heart-on' : '')+' fa fa-heart"></i></span>'+
                     '		<ol class="carousel-indicators">'+
                     '			<li data-target="#carousel-example-generic'+i+'" data-slide-to="0" class="active"></li>'+
@@ -82,9 +107,8 @@ servicios = {
 
                       $('#carousel-example-generic'+i+' .heart').on("click", function(e){
                           event.preventDefault();
-                          // agregar o quitar de la lista de deseos 
-                          $("i", this).toggleClass("heart-on");                          
-                          $(".qty").html($(".heart-on").toArray().length);
+                          // agregar o quitar de la lista de deseos                           
+                          servicios.putListadeseos($(this).parent().data().ref, this)
                       })
                 }
                 $(".qty").html(localStorage.Deseados);
@@ -116,22 +140,23 @@ servicios = {
 
     getListaDeseos: function(){
         debugger
-        $.ajax({
-            type: "POST",
+        $.ajax({            
             data: JSON.stringify({"UserRef": localStorage.userRef}),
             url: urlRest.urlgetListaDeseos,
+            type: "POST",
             async: true,
-            dataType: "json",            
+            dataType: "json",    
+            contentType: 'application/json',        
             success: function(data){
                 localStorage.Deseados = 0;
                 $("#list-productos").html("");  
                 for(var i=0; i<data.length; i++){
 
                     newProducto = 
-                    '       <div id="carousel-example-generic'+i+'" class="carousel slide col-md-2" data-ride="carousel" data-interval="false">'+
+                    '       <div id="carousel-example-generic'+i+'" data-ref="'+data[i].ProductoID+'" class="carousel slide col-md-2" data-ride="carousel" data-interval="false">'+
                     '		<h4>'+data[i].Nombre+'</h4> '+
-                    '		<span>Agregar a la lista de deseos</span>'+
-                    '		<a href="" class="heart '+(data[i].Deseado == "true" ? 'heart-on' : '')+' fa fa-heart"></a>'+
+                    '		<span class="heart"><span class="label-deseos">'+(data[i].Deseado == "true" ? "Quitar de " : "Agregar a ")+'la lista de deseos</span>'+
+                    '		<i class="'+(data[i].Deseado == "true" ? 'heart-on' : '')+' fa fa-heart"></i></span>'+
                     '		<ol class="carousel-indicators">'+
                     '			<li data-target="#carousel-example-generic'+i+'" data-slide-to="0" class="active"></li>'+
                     '			<li data-target="#carousel-example-generic'+i+'" data-slide-to="1"></li>'+
@@ -181,6 +206,12 @@ servicios = {
                     $("#list-productos").append(newProducto);   
                     if(data[i].Deseado == "true")                 
                       localStorage.Deseados = parseInt(localStorage.Deseados) + 1; 
+
+                    $('#carousel-example-generic'+i+' .heart').on("click", function(e){
+                        event.preventDefault();
+                        // agregar o quitar de la lista de deseos                           
+                        servicios.putListadeseos($(this).parent().data().ref, this)
+                    })
 
                 }
                 $(".qty").html(localStorage.Deseados);

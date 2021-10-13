@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, jsonify, session
+from markupsafe import escape
 #import productos
 from productos import getProductosList, getProductosDeseadosList
 from utils import crypto
@@ -24,22 +25,18 @@ def htmlDeseos():
 def getProductos():
     return jsonify(getProductosList())
 
-
 @app.route('/listadeseos/', methods=['GET','POST'])
-def getProductosDeseados():
-    
-    #if( request.json["UserRef"] == crypto( str(session["userID"]) )):
-        #return request.json["UserRef"]
+def getProductosDeseados():    
+    if( request.json["UserRef"] == crypto(session["userID"] )):
         return jsonify(getProductosDeseadosList())    
-    #else:
-    #   return ""
+    else:
+       return jsonify("")
 
-@app.route('/pruebaa/', methods=['GET','POST'])
-def getPrueba():
-    #if( request.json["UserRef"] == crypto(session["userID"])  ):
-        return request.json["UserRef"]#jsonify(getProductosDeseadosList())    
-    #else:
-    #    return ""
+@app.route("/putListadeseos/", methods=["GET", "POST"])
+def putListadeseos():
+    salida = {"SUCCESS": "ERROR", "DATA": ""}
+    salida["SUCCESS"] = "OK"
+    return jsonify(salida)
 
 @app.route('/connect', methods=['GET','POST'])
 @app.route('/connect/', methods=['GET','POST'])
@@ -48,9 +45,6 @@ def getConnect():
     session["userID"] = "1"
     data = {"tipoUser":userSuperAdmin, "ref": crypto(session["userID"])}
     return jsonify(data)
-
-
-
 
 @app.route('/setUsuario/', methods=['GET','POST'])
 def setUsuario():
@@ -61,6 +55,17 @@ def setUsuario():
 @app.route('/getUsuario/', methods=['GET','POST'])
 def getUsuario():
     return f'{session["user"]} --> {crypto(session["user"])} y password {session["pass"]} SuperAdmin: {session["sadmin"]}'
+
+
+@app.route('/probar', methods=['GET','POST'])
+def fnProbar():    
+    if(request.method == 'POST'): 
+        txtCedula = escape( request.form['txtCedula'] )
+        txtUsuario = 'Jaime'
+        txtEmail  = 'Jaime@hotmail.com'
+        return render_template('probar.html', txtCedula=txtCedula, txtUsuario=txtUsuario, txtEmail=txtEmail)
+    return render_template('probar.html')
+
 
 if(__name__ == '__main__'):
     app.run(debug=True, port=8080)
